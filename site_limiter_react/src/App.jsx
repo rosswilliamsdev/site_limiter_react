@@ -1,35 +1,57 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
+import Buttons from "./Buttons";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [sites, setSites] = useState("");
+  const [numberInput, setNumberInput] = useState(0);
+
+  // const db = localStorage.getItem("blocker-sites-db");
+  // if (localStorage.getItem("blocker-sites-db") === null) {
+  //   localStorage.setItem("blocker-sites-db");
+  // }
+
+  function handleSaveButtonClick() {
+    console.log("Number Input Value:", numberInput);
+  }
+
+  function handleSave() {
+    console.log("Save clicked");
+  }
+
+  function handleReset() {
+    console.log("Reset clicked");
+  }
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <h1>
+        Site Limiter <img className="logo" src="./images/lock-solid.png" />
+      </h1>
+      <div className="container">
+        <div className="site-div">
+          What sites do you want to limit today?
+          <input id="sites-input" type="text" />
+        </div>
+        <div className="visits-div">
+          How many visits are allowed?
+          <input
+            id="number-input"
+            type="number"
+            min="0"
+            value={numberInput}
+            onChange={(e) => {
+              console.log(e.target.value);
+              setNumberInput(e.target.value);
+            }}
+          />
+        </div>
+        <Buttons />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
