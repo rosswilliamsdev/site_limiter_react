@@ -76,13 +76,18 @@ button:focus-visible {
 
 .buttons {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   width: 30rem;
 }
 
 .save-btn,
 .reset-btn {
   width: 8rem;
+}
+
+.list-container {
+  display: flex;
+  flex-direction: column;
 }
 
 .list {
@@ -98,8 +103,14 @@ ul {
   display: flex;
   align-items: center;
   margin: 0.3rem 1rem;
+  font-size: 1.4rem;
 }
 
 strong {
   margin: 0 10px;
+}
+
+.remove-site {
+  width: 2rem;
+  cursor: pointer;
 }

@@ -11,14 +11,24 @@ function App() {
   const [siteInput, setSiteInput] = useState("");
   const [numberInput, setNumberInput] = useState(0);
   const [sitesList, setSitesList] = useState([]);
+  const [nextID, setNextID] = useState(0);
 
   function handleAddSite() {
-    console.log("click");
-    if (!sitesList.includes(siteInput)) {
-      setSitesList([...sitesList, siteInput]);
+    if (!sitesList.some((site) => site.name === siteInput)) {
+      setSitesList([...sitesList, { id: nextID, name: siteInput, visits: 0 }]);
+      setNextID((prevID) => prevID + 1);
       setSiteInput("");
     }
   }
+
+  function handleVisitsChange(id, newVisits) {
+    setSitesList((prevSitesList) =>
+      prevSitesList.map((site) =>
+        site.id === id ? { ...site, visits: newVisits } : site
+      )
+    );
+  }
+
   function handleReset() {
     console.log("Reset clicked");
     setSitesList([]);
@@ -50,6 +60,7 @@ function App() {
               id="sites-input"
               type="text"
               value={siteInput}
+              placeholder="Enter a site to limit"
               onChange={(e) => {
                 setSiteInput(e.target.value);
               }}
@@ -60,14 +71,30 @@ function App() {
           </div>
         </div>
         <div className="list-container">
-          <h3>Your list:</h3>
+          <h3>Your Limit List:</h3>
           <ul className="list">
-            {/* need to change the key to an id number? */}
             {sitesList.map((site) => {
               return (
-                <li className="list-item" key={site}>
-                  <input className="number-input" type="number" min="0" />
-                  <strong>{site}</strong>
+                <li className="list-item" key={site.id}>
+                  <input
+                    className="number-input"
+                    type="number"
+                    min="0"
+                    value={site.visits}
+                    onChange={(e) =>
+                      handleVisitsChange(site.id, e.target.value)
+                    }
+                  />
+                  <strong>{site.name}</strong>
+                  <img
+                    className="remove-site"
+                    src="src/assets/square-xmark-solid.png"
+                    onClick={() => {
+                      setSitesList(
+                        sitesList.filter((item) => item.id !== site.id)
+                      );
+                    }}
+                  />
                 </li>
               );
             })}
