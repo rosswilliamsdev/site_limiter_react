@@ -1,54 +1,91 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import { useEffect } from "react";
 import "./App.css";
-import Buttons from "./Buttons";
+
+// const db = localStorage.getItem("blocker-sites-db");
+// if (localStorage.getItem("blocker-sites-db") === null) {
+//   localStorage.setItem("blocker-sites-db");
+// }
 
 function App() {
-  const [sites, setSites] = useState("");
+  const [siteInput, setSiteInput] = useState("");
   const [numberInput, setNumberInput] = useState(0);
+  const [sitesList, setSitesList] = useState([]);
 
-  // const db = localStorage.getItem("blocker-sites-db");
-  // if (localStorage.getItem("blocker-sites-db") === null) {
-  //   localStorage.setItem("blocker-sites-db");
-  // }
-
-  function handleSaveButtonClick() {
-    console.log("Number Input Value:", numberInput);
+  function handleAddSite() {
+    console.log("click");
+    if (!sitesList.includes(siteInput)) {
+      setSitesList([...sitesList, siteInput]);
+      setSiteInput("");
+    }
+  }
+  function handleReset() {
+    console.log("Reset clicked");
+    setSitesList([]);
+    setSiteInput("");
+    setNumberInput(0);
   }
 
   function handleSave() {
-    console.log("Save clicked");
+    console.log("I'm saved!");
   }
 
-  function handleReset() {
-    console.log("Reset clicked");
-  }
+  useEffect(() => {
+    console.log("Effect triggered:", sitesList);
+  }, [sitesList]);
 
   return (
     <>
       <h1>
-        Site Limiter <img className="logo" src="./images/lock-solid.png" />
+        Site Limiter <img className="logo" src="src/assets/lock-solid.png" />
       </h1>
       <div className="container">
         <div className="site-div">
-          What sites do you want to limit today?
-          <input id="sites-input" type="text" />
+          <p>
+            Create a list of sites and choose how many visits are allowed for
+            each
+          </p>
+          <div className="input-and-button">
+            <input
+              id="sites-input"
+              type="text"
+              value={siteInput}
+              onChange={(e) => {
+                setSiteInput(e.target.value);
+              }}
+            />
+            <button className="add-btn btn" onClick={handleAddSite}>
+              Add
+            </button>
+          </div>
         </div>
-        <div className="visits-div">
-          How many visits are allowed?
-          <input
-            id="number-input"
-            type="number"
-            min="0"
-            value={numberInput}
-            onChange={(e) => {
-              console.log(e.target.value);
-              setNumberInput(e.target.value);
-            }}
-          />
+        <div className="list-container">
+          <h3>Your list:</h3>
+          <ul className="list">
+            {/* need to change the key to an id number? */}
+            {sitesList.map((site) => {
+              return (
+                <li className="list-item" key={site}>
+                  <input className="number-input" type="number" min="0" />
+                  <strong>{site}</strong>
+                </li>
+              );
+            })}
+          </ul>
         </div>
-        <Buttons />
+
+        <div className="buttons">
+          <button id="save-btn" className="btn save-btn" onClick={handleSave}>
+            Save
+          </button>
+          <button
+            id="reset-btn"
+            className="btn reset-btn"
+            onClick={handleReset}
+          >
+            Reset
+          </button>
+        </div>
       </div>
     </>
   );

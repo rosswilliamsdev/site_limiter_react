@@ -5,38 +5,101 @@
   text-align: center;
 }
 
+h1 {
+  margin-bottom: 20px;
+  font-size: xx-large;
+}
+
 .logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+  width: 2rem;
+  position: relative;
+  top: 1px;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.site-div,
+.visits-div {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.3rem;
 }
 
-.card {
-  padding: 2em;
+input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  border: 2px solid black;
+  border-radius: 5px;
 }
 
-.read-the-docs {
-  color: #888;
+.number-input {
+  width: 3.5rem;
+  height: 2rem;
+}
+
+.input-and-button {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+button,
+input {
+  height: 2.5rem;
+}
+
+button {
+  border-radius: 8px;
+  border: 2px solid black;
+  padding: 0.6rem 1.2rem;
+  margin: 0 1rem;
+  font-weight: bold;
+  font-family: inherit;
+  font-size: 14px;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 30rem;
+}
+
+.save-btn,
+.reset-btn {
+  width: 8rem;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+ul {
+  list-style: none;
+}
+
+.list-item {
+  display: flex;
+  align-items: center;
+  margin: 0.3rem 1rem;
+}
+
+strong {
+  margin: 0 10px;
 }
