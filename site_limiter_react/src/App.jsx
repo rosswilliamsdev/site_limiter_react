@@ -9,13 +9,21 @@ import "./App.css";
 
 function App() {
   const [siteInput, setSiteInput] = useState("");
-  const [numberInput, setNumberInput] = useState(0);
   const [sitesList, setSitesList] = useState([]);
   const [nextID, setNextID] = useState(0);
+  const [saveList, setSaveList] = useState([]);
 
   function handleAddSite() {
-    if (!sitesList.some((site) => site.name === siteInput)) {
-      setSitesList([...sitesList, { id: nextID, name: siteInput, visits: 0 }]);
+    const trimmedSiteInput = siteInput.trim();
+
+    if (
+      !sitesList.some((site) => site.name === trimmedSiteInput) &&
+      trimmedSiteInput !== ""
+    ) {
+      setSitesList([
+        ...sitesList,
+        { id: nextID, name: trimmedSiteInput, visits: 0 },
+      ]);
       setNextID((prevID) => prevID + 1);
       setSiteInput("");
     }
@@ -33,11 +41,11 @@ function App() {
     console.log("Reset clicked");
     setSitesList([]);
     setSiteInput("");
-    setNumberInput(0);
   }
 
   function handleSave() {
-    console.log("I'm saved!");
+    setSaveList(...sitesList);
+    console.log("Save list: ", saveList);
   }
 
   useEffect(() => {
